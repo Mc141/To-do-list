@@ -3,23 +3,32 @@
 <ul class="todo-list">
   <% items.forEach(item => { %>
   <li class="todo-item">
-    <div class="task-content">
-      <strong><%= item.title %></strong>
-      <p><%= item.description %></p>
-    </div>
 
-    <div class="task-actions">
-      <!-- Delete Form -->
-      <form action="/delete/<%= item._id %>" method="POST" class="inline-form">
-        <input type="hidden" name="_method" value="DELETE" />
-        <button type="submit" class="btn-delete">Delete</button>
-      </form>
 
-      <form action="/update/<%= item._id %>" method="POST" class="inline-form">
-        <input type="hidden" name="_method" value="PATCH" />
+
+    <form action="/update/<%= item._id %>" method="POST" class="inline-form">
+      <input type="hidden" name="_method" value="PATCH" />
+
+  
+<div class="task-content">
+  <label for="title-<%= item._id %>">Title</label>
+  <input id="title-<%= item._id %>" name="title" type="text" value="<%= item.title %>" required />
+
+  <label for="description-<%= item._id %>">Description</label>
+  <textarea id="description-<%= item._id %>" name="description" required><%= item.description %></textarea>
+</div>
+      <div class="task-actions">
         <button type="submit" class="btn-update">Update</button>
-      </form>
-    </div>
+      </div>
+    </form>
+
+
+
+
+    <form action="/delete/<%= item._id %>" method="POST" class="inline-form">
+      <input type="hidden" name="_method" value="DELETE" />
+      <button type="submit" class="btn-delete">Delete</button>
+    </form>
   </li>
   <% }); %>
 </ul>

@@ -3,7 +3,6 @@ const router = require('./router/mainRouter');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
-const methodOverride = require('method-override');
 
 
 const app = express();
@@ -25,8 +24,6 @@ mongoose.connect(MONGO_URI)
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
-
-app.use(methodOverride('_method'));
 
 app.use(express.json());
 

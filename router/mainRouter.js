@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 
 
-
 router.get("/", async (req, res) => {
     try {
         const items = await toDoItem.find({}, 'title description');
@@ -19,7 +18,7 @@ router.get("/", async (req, res) => {
 
 
 
-router.post("/add", async (req, res) => {
+router.get("/add", async (req, res) => {
     try {
         const item = new toDoItem({
             title: req.body.title,
@@ -36,23 +35,36 @@ router.post("/add", async (req, res) => {
 
 
 
-// router.post("/to-do-list", async (req, res) => {
-//   try {
-//     const item = new toDoItem({
-//       title: "Hello Title",
-//       description: "Hello Description"
-//     });
+router.post("/update/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const item = await toDoItem.findById(id);
+        item.title = req.body.title;
+        item.description = req.body.description;
+        await item.save();
+        res.status(200).redirect('/');
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).redirect('/');
+    }
+});
 
-//     await item.save();
-//     console.log("Item added");
 
-//     res.render('pages/to-do-list');
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Error saving item');
-//   }
-// });
 
+
+router.post("/delete/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const item = await toDoItem.findById(id);
+        item.title = req.body.title;
+        item.description = req.body.description;
+        await item.save();
+        res.status(200).redirect('/');
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).redirect('/');
+    }
+});
 
 
 
