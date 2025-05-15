@@ -1,19 +1,32 @@
 <h2>Your Tasks</h2>
 
 <ul class="todo-list">
+  <% items.forEach(item => { %>
+  <li class="todo-item">
+    <div class="task-content">
+      <strong><%= item.title %></strong>
+      <p><%= item.description %></p>
+    </div>
 
- 
-    <% items.forEach(item => { %>
-        <li>
-            <strong><%= item.title %></strong>
-            <p><%= item.description %></p>
-        </li>
-    <%}); %>
+    <div class="task-actions">
+      <!-- Delete Form -->
+      <form action="/delete/<%= item._id %>" method="POST" class="inline-form">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button type="submit" class="btn-delete">Delete</button>
+      </form>
 
+      <form action="/update/<%= item._id %>" method="POST" class="inline-form">
+        <input type="hidden" name="_method" value="PATCH" />
+        <button type="submit" class="btn-update">Update</button>
+      </form>
+    </div>
+  </li>
+  <% }); %>
 </ul>
 
+<!-- Add New Task Form -->
 <form action="/add" method="POST" class="todo-form">
-  <input type="text" name="title" placeholder="Task title" required>
+  <input type="text" name="title" placeholder="Task title" required />
   <textarea name="description" placeholder="Description" required></textarea>
   <button type="submit">Add Task</button>
 </form>
